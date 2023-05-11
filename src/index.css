@@ -1,0 +1,49 @@
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+
+.guest {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    #858dc5 0%,
+    #374bce 100%
+  );
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+.dashboard{
+  background: linear-gradient(179.57deg, #826EDB 0.04%, #826EDB 45.77%, #71B9FA 91%, #6FC6FF 98.31%);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
