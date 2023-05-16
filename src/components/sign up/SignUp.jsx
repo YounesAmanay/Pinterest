@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link , useNavigate } from "react-router-dom";
+import axios from "axios";
 import './signUp.css'
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -7,7 +9,7 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
   });
-
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
@@ -19,12 +21,39 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform form validation and handle submission
+    axios
+      .post(
+        "http://localhost:8000/api/auth/login",
+        {
+          "name": formData.name,
+          "email": formData.email,
+          "password": formData.password,
+          "confirmPassword": formData.confirmPassword,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response)
+        setFormData({
+          name: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        })
+
+        navigate('/sign-in', { state: { from: location } });
+
+      })
+    
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length === 0) {
-      // Submit the form
+      
       console.log("Form submitted:", formData);
-      // Reset the form
       setFormData({
         name: "",
         email: "",
@@ -61,13 +90,12 @@ const SignUp = () => {
   };
 
   const isValidEmail = (email) => {
-    // You can use a regex pattern to validate the email address
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
   return (
     <div className="guest">
-      <div className="login-container">
+      <div className="sign-up-container">
         <h2>Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -120,9 +148,9 @@ const SignUp = () => {
           </div>
           <button type="submit">Sign Up</button>
         </form>
-        <a href="/" className="subscribe-link">
+        <Link to="/sign-in" className="subscribe-link">
           Already have an account? Sign In
-        </a>
+        </Link>
       </div>
     </div>
   );

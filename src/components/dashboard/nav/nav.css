@@ -1,0 +1,124 @@
+.nav-container {
+  width: 80px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.logo svg {
+  width: 50px;
+  height: 50px;
+  color: #ffffff;
+  transition: transform 0.3s ease;
+}
+
+
+.logo::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.nav {
+  width: 60px;
+  height: 280px;
+  background: #F7F7F7;
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(20px);
+  margin-top: auto; 
+}
+
+.nav nav {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #E9E9E9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.nav nav:hover {
+  background-color: #D4D4D4;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav nav.active {
+  background: #FF6961;
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav nav.active:hover {
+  background: #FF4D44;
+}
+
+.nav nav.active > *,
+.nav nav.active:hover > * {
+  color: #fff;
+}
+
+.nav nav:hover > * {
+  color: #332D4E;
+}
+
+.nav nav > * {
+  width: 25px;
+  height: 25px;
+  color: #332D4E;
+  font-weight: bold;
+}
+
+.logout {
+  margin-top: auto;
+  position: relative;
+}
+
+.logout svg {
+  width: 40px;
+  height: 40px;
+  color: #fff;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.logout svg:hover {
+  color: #C0392B;
+}
+.logout::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  filter: blur(40px);
+  z-index: -1;
+}

@@ -7,7 +7,6 @@ function PrivateRoute() {
   if (!isAuthenticated) {
     return <Navigate to="/sign-in" state={{ from: location }} />;
   }
-
   return <Outlet />;
 }
 
