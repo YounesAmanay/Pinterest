@@ -1,0 +1,81 @@
+:root {
+  --primary-c: #5c6ac4;
+  --secondary-c: #e9e9e9;
+  --tertiary-c: #332d4e;
+  --font-size: 16px;
+  --font-family: 'Arial', sans-serif;
+}
+
+.chat-search-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.chat-search-container .search {
+  display: flex;
+  align-items: center;
+  border-radius: 22px;
+  width: 100%;
+  background-color: var(--secondary-c);
+  border: 0.5px solid var(--tertiary-c);
+  padding: 0 8px;
+  height: 45px;
+  transition: border-color 0.3s ease, width 0.3s ease;
+}
+
+.chat-search-container .search:hover {
+  border-color: var(--primary-c);
+}
+
+.chat-search-container input {
+  flex-grow: 1;
+  border: none;
+  background: transparent;
+  font-size: var(--font-size);
+  font-family: var(--font-family);
+  color: var(--primary-c);
+  outline: none;
+  height: 55px;
+  transition: color 0.3s ease;
+}
+
+.chat-search-container input::placeholder {
+  font-weight: 400;
+  color: var(--tertiary-c);
+}
+
+.chat-search-container .search button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  width: fit-content;
+}
+
+.chat-search-container button svg {
+  width: 20px;
+  height: 20px;
+  font-weight: bolder;
+  fill: var(--primary-c);
+}
+
+.clear button svg {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--tertiary-c);
+  fill: var(--secondary-c);
+  transition: fill 0.3s ease;
+}
+
+.clear button:hover svg {
+  fill: #FCFBF3;
+}
+
+

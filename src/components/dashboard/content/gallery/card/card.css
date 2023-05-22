@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+.pin-container {
+  position: relative;
+  width: 100%;
+  max-height: 500px;
+  height: auto;
+  overflow: hidden;
+  border-radius: 6px;
+  margin-bottom: 0.6rem;
+}
+
+.pin-placeholder {
+  position: relative;
+  width: 100%;
+  max-height: 500px;
+  padding-bottom: 100%; /* Maintain aspect ratio */
+  background: linear-gradient(135deg, #e9498a, #4c4cd2);
+  opacity: 1;
+  overflow: hidden;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOutDelay {
+  0% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.pin-placeholder::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
+  transform: skewY(-20deg);
+  opacity: 0.8;
+  filter: blur(2px);
+  animation: fadeOutDelay 1.5s infinite ease-in-out;
+}
+
+@keyframes waterFlow {
+  0% {
+    background-position: -200% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+
+.pin-container img {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.pin-container:hover img {
+  opacity: 0.8;
+}
+
+.pin-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  padding: 8px;
+  transform: translateY(100%);
+  transition: transform 0.3s ease-in-out;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.pin-container:hover .pin-overlay {
+  transform: translateY(0);
+}
+
+.overley-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.category-list {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  padding: 2px;
+  border-bottom: 2px solid #332D4E;
+  background-color: transparent;
+}
+
+.overley-header .save {
+  padding: 12px 20px;
+  width: 110px;
+  font-size: 18px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(137.53deg, #FFB57A 3.58%, #FF6393 60.33%, #B76AAB 88.75%);
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+
+
+
+
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  max-height: 600px;
+  height: auto;
+  width: 100%;
+  margin-top: auto;
+  background: linear-gradient(45deg, #3d6a7e, #709fb0);
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  font-family: 'Poppins', sans-serif;
+  border-radius: 8px;
+  color: #fff;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.info-footer {
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+  gap: auto;
+  width: 100%;
+}
+.user{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.pin-avatar-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  background-color: #ccc;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.avatar-img img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 8px;
+}
+
+.pin-date {
+  font-size: 16px;
+  font-weight: 300;
+  color: #3a434b;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.user-name {
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pulse-animation {
+  animation: none;
+}

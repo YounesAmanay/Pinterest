@@ -1,13 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./filter.css";
-import axios from "axios";
 import useCategories from "../../../../costumHooks/useCategories";
 import { BsChevronLeft, BsChevronRight } from "react-icons/all";
+import usePinsByCategory from "../../../../costumHooks/usePinsByCategory";
+import { useDispatch, useSelector } from "react-redux";
 
 function Filter() {
   const categories = useCategories();
   const scrollContainer = useRef(null);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const selectedCategory = useSelector((state) => state.selectedCategory);
+  const dispatch = useDispatch();
+
+  const { pins } = usePinsByCategory(selectedCategory?.id);
+
+  useEffect(() => {
+    dispatch({ type: 'SET_CATEGORY_PINS', pins });
+  }, [dispatch, pins]);
 
   const scrollLeft = () => {
     if (scrollContainer.current) {
@@ -22,11 +30,14 @@ function Filter() {
   };
 
   const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
+    dispatch({ type: 'SELECT_CATEGORY', selectedCategory: category });
     const categoryButton = document.getElementById(`category-${category.id}`);
     if (categoryButton) {
       const containerWidth = scrollContainer.current.offsetWidth;
-      const scrollOffset = categoryButton.offsetLeft - containerWidth / 2 + categoryButton.offsetWidth / 2;
+      const scrollOffset =
+        categoryButton.offsetLeft -
+        containerWidth / 2 +
+        categoryButton.offsetWidth / 2;
       scrollContainer.current.scrollLeft = scrollOffset;
     }
   };
@@ -42,7 +53,11 @@ function Filter() {
             return (
               <button
                 id={`category-${category.id}`}
-                className={`category ${selectedCategory === category ? "active" : ""}`}
+                className={`category ${
+                  selectedCategory && selectedCategory.id === category.id
+                    ? "active"
+                    : ""
+                }`}
                 key={category.id}
                 onClick={() => handleCategoryClick(category)}
               >

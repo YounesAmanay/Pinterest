@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Link , useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import './signUp.css'
+import './signUp.css';
+
 const SignUp = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -21,45 +22,40 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(
-        "http://localhost:8000/api/auth/login",
-        {
-          "name": formData.name,
-          "email": formData.email,
-          "password": formData.password,
-          "confirmPassword": formData.confirmPassword,
-        },
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response)
-        setFormData({
-          name: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-        })
 
-        navigate('/sign-in', { state: { from: location } });
-
-      })
-    
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length === 0) {
+      axios
+        .post(
+          "http://localhost:8000/api/auth/register",
+          {
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+            password_confirmation: formData.confirmPassword,
+          },
+          {
+            headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response);
+          setFormData({
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          });
+          navigate('/sign-in', { state: { from: location } });
+        })
+        .catch((error) => {
+          console.log(error);
+          // Handle error if the request fails
+        });
       
-      console.log("Form submitted:", formData);
-      setFormData({
-        name: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
       setErrors({});
     } else {
       setErrors(validationErrors);
@@ -98,7 +94,7 @@ const SignUp = () => {
       <div className="sign-up-container">
         <h2>Sign Up</h2>
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
+        <div className="form-group">
             <input
               className="form-input"
               type="text"

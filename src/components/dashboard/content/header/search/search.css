@@ -1,6 +1,6 @@
 /* Define variables for colors and fonts */
 :root {
-  --primary-color: #fff;
+  --primary-color: #FCFBF3;
   --secondary-color: #6d6b7c;
   --tertiary-color: #4c4a5e;
   --font-size: 16px;
@@ -19,7 +19,7 @@
   border-radius: 22px;
   width: 100%;
   background: var(--primary-color);
-  border: 1px solid var(--secondary-color);
+  border: 2px solid var(--secondary-color);
   padding: 0 8px;
   height: 55px;
   transition: border-color 0.3s ease, width 0.3s ease, right 0.3s ease;
@@ -51,11 +51,15 @@
   border: none;
   outline: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .search button svg {
   width: 20px;
   height: 20px;
+  font: bolder;
   fill: var(--secondary-color);
 }
 

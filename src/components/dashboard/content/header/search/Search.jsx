@@ -3,8 +3,8 @@ import { GrFormSearch, MdClear } from "react-icons/all";
 import axios from "axios";
 import "./search.css";
 import SearchBox from "./SearchBox";
-import _ from "lodash";
 import useOutsideClick from "../../../../../costumHooks/useOutsideClick";
+import useSearchPins from "../../../../../costumHooks/useSearchPins";
 
 function Search() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -13,6 +13,8 @@ function Search() {
   const [showBox, setShowBox] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [query ,setQuery]=useState(null)
+  useSearchPins(query)
 
   const ref = useRef(null);
 
@@ -50,7 +52,7 @@ function Search() {
           .finally(() => {
             setLoading(false);
           });
-      }, 500);
+      }, 10);
 
       return () => clearTimeout(debounceTimeout);
     } else {
@@ -69,13 +71,12 @@ function Search() {
         },
       })
       .then((response) => {
-        console.log(response);
         setSearchHistory(response.data.history);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, 500);
 
   const handleClear = () => {
     setSearchTerm("");
@@ -83,14 +84,22 @@ function Search() {
     setShowBox(false); // Hide the box
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('submitte')
+    setQuery(searchTerm)
+    setSearchTerm('')
+    setShowBox(false)
+  };
+
   return (
     <div className="search-container">
-      <div className="search">
-        <form>
+      <form  onSubmit={handleSubmit} className="search">
+        <div >
           <button type="submit">
             <GrFormSearch />
           </button>
-        </form>
+        </div>
         <input
           type="text"
           value={searchTerm}
@@ -105,8 +114,8 @@ function Search() {
             </button>
           </div>
         )}
-      </div>
-      {showBox ? (
+      </form>
+      {showBox && (
         <SearchBox
           ref={ref}
           searchHistory={searchHistory}
@@ -115,7 +124,7 @@ function Search() {
           searchTerm={searchTerm}
           loading={loading}
         />
-      ) : null}
+      )}
     </div>
   );
 }
