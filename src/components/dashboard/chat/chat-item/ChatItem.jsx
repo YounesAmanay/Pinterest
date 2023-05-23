@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 function ChatItem({ chat }) {
   const { isLoading, image } = useUserImage(chat.user_id);
   const selectedChat = useSelector((state) => state.selectedChat);
-  const date = useFormattedDate(chat.date);
+  const formatDate = useFormattedDate();
   const hasUnreadCount = chat.unread_count > 0;
   const isSelected = selectedChat === chat.id;
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ function ChatItem({ chat }) {
       </div>
       <div className="chat-stats">
         {hasUnreadCount && <div className="unread-count">{chat.unread_count}</div>}
-        <div className="received-at">{date}</div>
+        <div className="received-at">{formatDate(chat.date)}</div>
       </div>
     </div>
   );

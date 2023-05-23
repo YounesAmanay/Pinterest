@@ -5,14 +5,19 @@ import { Link } from "react-router-dom";
 import "./searchBox.css";
 import Avatar from "../../../../fragments/Avatar";
 import Highlighter from "react-highlight-words";
+import useSearchPins from "../../../../../costumHooks/useSearchPins";
 
 const SearchBox = forwardRef(
   (
     {
       suggestions,
-      setSearchHistory,
       searchHistory,
       searchTerm,
+      setSearchTerm,
+      setQuery,
+      setShowBox,
+      deleteSearchHistory,
+      isDeleted,
     },
     ref
   ) => {
@@ -20,47 +25,57 @@ const SearchBox = forwardRef(
       <div className="overlay">
         <div ref={ref} className="search-box">
           <ul className="suggestion-list">
-            {suggestions.length > 0 ? (
-              suggestions.map((suggestion, index) => (
-                <li key={index} className="suggestion-item">
-                  {suggestion.type === "user" ? (
-                    <Link
-                      to={`profile/${suggestion.user.id}`}
-                      className="avatar-link"
+            {searchTerm
+              ? suggestions.map((suggestion, index) => (
+                  <li key={index} className="suggestion-item">
+                    {suggestion.type === "user" ? (
+                      <Link
+                        to={`profile/${suggestion.user.id}`}
+                        className="avatar-link"
+                      >
+                        <Avatar
+                          user={suggestion.user}
+                          searchTerm={searchTerm}
+                        />
+                      </Link>
+                    ) : suggestion.type === "pin" ? (
+                      <div
+                        className="pin-suggestion"
+                        onClick={() => {
+                          setSearchTerm(suggestion.title);
+                          setQuery(suggestion.title);
+                          setShowBox(false);
+                        }}
+                      >
+                        <GrFormSearch />
+                        <Highlighter
+                          searchWords={[searchTerm]}
+                          textToHighlight={suggestion.title}
+                          highlightClassName="highlighted-text"
+                        />
+                      </div>
+                    ) : null}
+                  </li>
+                ))
+              : searchHistory.map((history, index) => (
+                  <li key={index} className="search-history-item">
+                    <div
+                      className="pin-suggestion"
+                      onClick={() => {
+                        setSearchTerm(history.query);
+                        setShowBox(false);
+                      }}
                     >
-                      <Avatar user={suggestion.user} searchTerm={searchTerm} />
-                    </Link>
-                  ) : suggestion.type === "pin" ? (
-                    <div className="pin-suggestion">
                       <GrFormSearch />
-                      <Highlighter
-                        searchWords={[searchTerm]}
-                        textToHighlight={suggestion.title}
-                        highlightClassName="highlighted-text"
-                      />
-                    </div>
-                  ) : null}
-                </li>
-              ))
-            ) : (
-              <>
-                {searchHistory.length > 0 ? (
-                  searchHistory.map((history, index) => (
-                    <li key={index} className="search-history-item">
                       {history.query}
-                      <MdClear
-                        className="delete-icon"
-                        onClick={() => onDeleteSearchHistory(history.id)}
-                      />
-                    </li>
-                  ))
-                ) : (
-                    <div>
-
                     </div>
-                )}
-              </>
-            )}
+                    <button className="delete-icon">
+                      <MdClear
+                        onClick={() => deleteSearchHistory(history.id)}
+                      />
+                    </button>
+                  </li>
+                ))}
           </ul>
         </div>
       </div>

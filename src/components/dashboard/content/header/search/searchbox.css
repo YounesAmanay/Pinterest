@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
 .overlay {
   position: fixed;
   top: 88px;
@@ -9,7 +11,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
-  padding:0 20px;
+  padding: 0 20px;
   border-radius: 0 0 20px;
 }
 
@@ -27,6 +29,10 @@
   overflow-y: scroll;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #251f43;
 }
 
 .suggestion-list {
@@ -40,6 +46,9 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-size: 16px;
+  font-weight: bold;
+  color: #251f43;
 }
 
 .suggestion-item:hover {
@@ -53,6 +62,9 @@
   padding: 12px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-size: 16px;
+  font-weight: bold;
+  color: #251f43;
 }
 
 .search-history-item:hover {
@@ -60,57 +72,48 @@
 }
 
 .delete-icon {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
   width: 16px;
   height: 16px;
-  fill: var(--secondary-color);
-  cursor: pointer;
-  transition: fill 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 16px;
+  color: #999999;
+  transition: color 0.3s ease;
 }
 
 .delete-icon:hover {
-  fill: var(--tertiary-color);
+  color: #ff4d44;
 }
 
 .highlighted-text {
-  color: #FF4D44;
+  color: #ff4d44;
   font-weight: bold;
   background-color: transparent;
 }
-.pin-suggestion{
+
+.pin-suggestion {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   padding: 10px 5px;
 }
+
 .pin-suggestion > svg {
   margin-right: 8px;
   fill: #8c8c8c;
-  font-weight: bolder;
+  font-weight: bold;
   transition: fill 0.3s ease;
 }
 
 .pin-suggestion:hover > svg {
   fill: #251f43;
-}
-
-.search-box {
-  font-family: "Arial", sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #251f43;
-}
-
-.search-history-item,
-.suggestion-item {
-  font-size: 16px;
-  font-weight: bold;
-  color: #251f43;
-}
-
-.search-history-item:hover,
-.suggestion-item:hover {
-  background-color: #f5f5f5;
 }
 
 @media (max-width: 768px) {

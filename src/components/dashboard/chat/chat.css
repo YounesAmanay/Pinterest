@@ -7,7 +7,7 @@
 .chats {
   width: 499px;
   height: 100%;
-  background-color: #f7f7f7;
+  background-color: #ffffff;
   overflow-x: auto; 
   overflow-y: hidden;
 }
@@ -114,13 +114,13 @@
   justify-content: space-between;
   align-items: flex-end;
   gap: 5px;
+  height: 50px;
 }
 
 .received-at {
   margin-top: auto;
   font-size: 12px;
   color: #999999;
-  height: 100%;
 }
 
 .unread-count {

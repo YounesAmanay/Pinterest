@@ -30,10 +30,10 @@ const useChatMessages = (chatID, posted) => {
           }
         );
 
+        dispatch({ type: "SHOULD_LOAD", load: !load });
         setMessages(response.data.messages);
         setUserName(response.data.user_name);
         setUserId(response.data.user_id);
-        dispatch({ type: "SHOULD_LOAD", load: !load });
         setIsLoading(false);
       } catch (error) {
         setError(error.message);
@@ -42,7 +42,7 @@ const useChatMessages = (chatID, posted) => {
     };
 
     fetchChatMessages();
-  }, [chatID, posted]);
+  }, [chatID, posted , load]);
 
   useEffect(() => {
     // configure Laravel Echo
@@ -57,15 +57,17 @@ const useChatMessages = (chatID, posted) => {
     });
     window.Echo.channel(`chat.${chatID}`)
       .listen("NewMessage", (event) => {
-        setMessages((messages) => [...messages, event.message]);
         dispatch({ type: "SHOULD_LOAD", load: !load });
+        setMessages((messages) => [...messages, event.message]);
+    
+
       })
       .listen("MessageDeleted", (event) => {
+        dispatch({ type: "SHOULD_LOAD", load: !load });
         setMessages((messages) =>
           messages.filter((message) => message.id !== event.message.id)
         );
-        console.log('test')
-        dispatch({ type: "SHOULD_LOAD", load: !load });
+       
       });
 
     return () => {

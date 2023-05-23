@@ -35,7 +35,7 @@ function useUserChats() {
     }
 
     fetchChats();
-  },[load , selectedChat]);
+  },[load, selectedChat]);
 
   return { chats, isLoading };
 }

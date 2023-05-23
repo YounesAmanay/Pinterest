@@ -30,10 +30,6 @@ const usePostMessage = () => {
       );
 
       setIsLoading(false);
-
-      // Return the newly created message if needed
-      console.log(response.data
-      )
       return response.data;
     } catch (error) {
       setError(error.message);

@@ -5,6 +5,7 @@ import "./search.css";
 import SearchBox from "./SearchBox";
 import useOutsideClick from "../../../../../costumHooks/useOutsideClick";
 import useSearchPins from "../../../../../costumHooks/useSearchPins";
+import useDeleteSearchHistory from "../../../../../costumHooks/useDeleteSearchHistory";
 
 function Search() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,9 +13,10 @@ function Search() {
   const [searchHistory, setSearchHistory] = useState([]);
   const [showBox, setShowBox] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const [query ,setQuery]=useState(null)
   useSearchPins(query)
+  const { isDeleted, deleteSearchHistory } = useDeleteSearchHistory();
+
 
   const ref = useRef(null);
 
@@ -76,7 +78,7 @@ function Search() {
       .catch((error) => {
         console.log(error);
       });
-  }, 500);
+  },[isDeleted,query]);
 
   const handleClear = () => {
     setSearchTerm("");
@@ -123,6 +125,11 @@ function Search() {
           suggestions={suggestions}
           searchTerm={searchTerm}
           loading={loading}
+          setSearchTerm={setSearchTerm}
+          setQuery={setQuery}
+          setShowBox={setShowBox}
+          deleteSearchHistory={deleteSearchHistory}
+          isDeleted={isDeleted}
         />
       )}
     </div>

@@ -22,6 +22,13 @@ function Chat() {
       dispatch({ type: 'SELECT_CHAT',chatID:chatID , chat_user:userID });
     }
   }, [chatID, dispatch]);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if(filteredChats.length>0){
+      dispatch({ type: 'SELECT_CHAT',chatID:filteredChats[0].id , chat_user:filteredChats[0].user_id })
+    }
+    setSearchTerm("");
+  }
 
   return (
     <div className="chat-container">
@@ -30,6 +37,7 @@ function Chat() {
           <Search 
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
+            handleSubmit={handleSubmit}
           />
         </div>
         <div className="chats-list">
