@@ -1,0 +1,91 @@
+.c-container {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  max-width: 600px;
+  height: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+.c-box {
+  margin-bottom: 10px;
+  padding: 20px;
+}
+.c-box .title{
+  margin-bottom: 20px;
+  text-transform: capitalize;
+  font-size: 22px;
+  color: #333;
+}
+.c-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding:0 20px;
+  margin-bottom: 5px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+
+.c-container .user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.c-container .avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.c-container .avatar-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #ccc;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.c-details {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.c-u-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.c-content {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.4;
+}
+
+.c-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.c-date {
+  font-size: 12px;
+  color: #888;
+}
+
+.c-delete {
+  color: #888;
+  cursor: pointer;
+}

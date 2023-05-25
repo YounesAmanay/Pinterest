@@ -6,12 +6,13 @@ import usePins from '../../../../costumHooks/usePins';
 
 function Gallery() {
   const pins = useSelector((state) => state.pins);
+  const pinsLoad = useSelector((state) => state.pinsLoad);
   const dispatch = useDispatch();
-  const { pins: pinApi } = usePins();
+  const { pins: pinApi } = usePins(pinsLoad);
 
   useEffect(() => {
     dispatch({ type: 'SET_PINS', pins: pinApi });
-  }, [dispatch, pinApi]);
+  }, [dispatch, pinApi ,pinsLoad ]);
   
   return (
     <div className="grid-container">

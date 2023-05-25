@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function useUserImage(userId) {
+function useUserImage(userId ,selectedImage) {
   const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -32,7 +32,7 @@ function useUserImage(userId) {
     }
 
     fetchImage();
-  }, [userId]);
+  }, [userId ,selectedImage]);
 
   return { image, isLoading };
 }

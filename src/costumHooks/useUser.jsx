@@ -21,6 +21,7 @@ function useUser(userId) {
 
       try {
         const response = await axios(options);
+        console.log(response)
         setUser(response.data);
       } catch (error) {
         console.error(error);

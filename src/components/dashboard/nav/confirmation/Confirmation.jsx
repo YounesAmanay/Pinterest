@@ -12,6 +12,9 @@ function Confirmation({setShowConfirmation}) {
 
   const handleConfirm = () => {
     logout(); 
+    setShowConfirmation(false);
+    localStorage.removeItem("token");
+    Navigate('/sign-in')
   };
 
   return (

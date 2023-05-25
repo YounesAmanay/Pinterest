@@ -1,9 +1,8 @@
 import { useCallback } from "react";
 import axios from "axios";
-import { Navigate, Outlet, useLocation } from 'react-router-dom';"react-router-dom";
+import { Navigate } from 'react-router-dom';
 
 function useLogout() {
-  const location = useLocation();
   const logout = useCallback(() => {
     const token = localStorage.getItem("token");
 
@@ -18,8 +17,7 @@ function useLogout() {
     };
     axios(options)
       .then((response) => {
-        localStorage.removeItem("token");
-        Navigate('/sign-in')
+        
         
       })
       .catch((error) => {

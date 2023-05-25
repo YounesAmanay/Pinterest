@@ -4,28 +4,33 @@ import Search from "./search/Search";
 import { BiMessageSquareEdit } from "react-icons/bi";
 import ChatItem from "./chat-item/ChatItem";
 import useUserChats from "../../../costumHooks/useUserChats";
-import Messages from "./messages/Messages";
 import { useDispatch, useSelector } from "react-redux";
+import Messages from "./messages/Messages";
 
 function Chat() { 
   const { chats } = useUserChats();
   const dispatch = useDispatch();
+  const copy = useSelector((state)=>state.chat_user)
+  const copy_name = useSelector((state)=>state.chat_user_name)
   const chatID = chats[0]?.id;
   const userID = chats[0]?.user_id
+  const userName = chats[0]?.user_name
+  // console.log(chats[0]?.user_name)
   const [searchTerm, setSearchTerm] = useState("");
   const filteredChats = chats.filter(chat =>
     chat.user_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   useEffect(() => {
-    if (chatID) {
-      dispatch({ type: 'SELECT_CHAT',chatID:chatID , chat_user:userID });
+    if (chatID && !copy) {
+      dispatch({ type: 'SELECT_CHAT',chatID:chatID , userID:userID , name:userName});
+      console.log(userName)
     }
-  }, [chatID, dispatch]);
+  },[chatID ,dispatch]);
   const handleSubmit = (e) => {
     e.preventDefault();
     if(filteredChats.length>0){
-      dispatch({ type: 'SELECT_CHAT',chatID:filteredChats[0].id , chat_user:filteredChats[0].user_id })
+      dispatch({ type: 'SELECT_CHAT',chatID:filteredChats[0].id , userID:filteredChats[0].user_id , name:filteredChats[0].user_name})
     }
     setSearchTerm("");
   }

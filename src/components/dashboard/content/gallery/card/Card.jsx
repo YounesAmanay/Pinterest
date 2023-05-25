@@ -33,9 +33,11 @@ function Card({ pin }) {
                 {isLoading ? (
                   <div className="pin-avatar-placeholder">{user_name.charAt(0)}</div>
                 ) : (
-                  <div className="avatar-img">
+                  <Link 
+                  to={`profile/${user_id}`}
+                  className="avatar-img">
                     <img src={image} alt="User profile" />
-                  </div>
+                  </Link>
                 )}
                 <p className="user-name">{user_name}</p>
               </div>

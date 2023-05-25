@@ -8,7 +8,7 @@
 }
 
 .grid-center {
-  column-count: 5;
+  column-count: 4;
   column-gap: 0.6rem;
   overflow: hidden;
 }

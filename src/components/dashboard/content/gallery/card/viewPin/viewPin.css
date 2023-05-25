@@ -1,73 +1,215 @@
-.pin-container {
-  display: flex;
-  align-items: flex-start;
-}
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
-.pin-image {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-right: 20px;
-}
-
-.pin-overlay {
-  display: flex;
-  flex-direction: column;
-}
-
-.title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.user {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.pin-avatar-placeholder {
-  width: 40px;
-  height: 40px;
-  background-color: #ccc;
-  border-radius: 50%;
+.pin-view-container {
+  width: 90%;
+  height: 90vh;
+  border-radius: 20px;
+  background-color: #f2f2f2;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
-  color: #fff;
+  margin: auto;
+  position: relative;
 }
 
-.avatar-img img {
-  width: 40px;
-  height: 40px;
+.pin-modal-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.pin-modal-content .pin-right-section {
+  width: 50% !important;
+  height: 100%;
+  background: linear-gradient(to bottom, #3a8bdb, #3273ad);
+}
+
+.pin-modal-content .pin-right-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pin-modal-content .pin-lift-section {
+  width: 50% !important;
+  height: 100%;
+  background-color: #fff;
+  backdrop-filter: blur(10px);
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pin-lift-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background-color: #fff;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.pin-lift-header .lift-user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.pin-lift-header .lift-user .user {
+  display: flex;
+  align-items: center;
+}
+
+.pin-lift-header .lift-user .user .pin-avatar-img {
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
   border-radius: 50%;
+  margin-right: 16px;
 }
 
-.user-details {
-  margin-left: 10px;
+.pin-lift-header .lift-user .user .pin-avatar-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.user-name {
-  font-size: 16px;
+.pin-lift-header .lift-user .user .pin-user-name {
+  font-size: 18px;
   font-weight: bold;
-  margin-bottom: 5px;
+  color: #333;
+  font-family: "Roboto", sans-serif;
+  margin-right: 16px;
 }
 
-.save-button {
-  padding: 5px 10px;
-  border: none;
-  background-color: #0088cc;
+.pin-lift-header .lift-user .lift-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.pin-lift-header .lift-user .lift-buttons .download-button {
+  background-color: #0088ff;
   color: #fff;
+  padding: 8px;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.01);
+}
+
+.pin-lift-header .lift-user .lift-buttons .download-button:hover {
+  background-color: #0056b3;
+}
+
+.pin-lift-header .lift-user .lift-buttons .follow {
+  background-color: #ff6b6b;
+  color: #fff;
+  height: 40px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.01);
 }
 
-.pin-date {
-  font-size: 12px;
-  color: #888;
-  margin-bottom: 5px;
+.pin-lift-header .lift-user .lift-buttons .follow:hover {
+  background-color: #e60000;
+}
+
+.pin-v-d {
+  padding: 16px;
+}
+
+.v-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 8px;
+  font-family: "Roboto", sans-serif;
+}
+
+.v-desc {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.5;
+  font-family: "Roboto", sans-serif;
+  margin-bottom: 20px;
+}
+
+.messages-foote {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* background-color: rgba(255, 255, 255, 0.9); */
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  height: 80px;
+  padding: 0 24px;
+}
+
+.messages-foote input[type="text"] {
+  flex: 1;
+  height: 100%;
+  min-height: 80px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  outline: none;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+
+.messages-foote .send {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  margin-left: 16px;
+  border: none;
+  border-radius: 50%;
+  background-color: #ff6b6b;
+  color: #fff;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.messages-foote .send:hover {
+  background-color: #ff4f4f;
+}
+
+.messages-foote .send:focus {
+  box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.5);
 }

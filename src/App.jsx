@@ -5,13 +5,13 @@ import SignIn from "./components/sign in/SignIn";
 import PrivateRoute from "./components/PrivateRoute"
 import SignUp from "./components/sign up/SignUp";
 import Content from "./components/dashboard/content/Content";
-import Profile from "./components/dashboard/profile/profile";
 import Nav from "./components/dashboard/nav/Nav";
 import Confirmation from "./components/dashboard/nav/confirmation/Confirmation";
 import ViewPin from "./components/dashboard/content/gallery/card/viewPin/ViewPin";
 import usePins from "./costumHooks/usePins";
 import { useDispatch } from "react-redux";
 import Chat from "./components/dashboard/chat/Chat";
+import Profile from "./components/dashboard/profile/Profile";
 
 function App() {
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -40,8 +40,7 @@ function App() {
       <Routes>
         <Route path='/' element={<PrivateRoute />}>
           <Route index element={<Content />} />
-          <Route path="/profile/:id" element={<Profile />}/> 
-          <Route path="/profile" element={<Profile />}/> 
+          <Route path="/profile/:id" element={<Profile/>}/> 
           <Route path="/pin/:id" element={<ViewPin/>}/> 
           <Route path="/chat" element={<Chat/>}/>
         </Route>

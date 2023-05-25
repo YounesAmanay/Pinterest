@@ -4,6 +4,7 @@ import useFormattedDate from "../../../../costumHooks/useFormattedDate ";
 import { useSelector, useDispatch } from "react-redux";
 
 
+
 function ChatItem({ chat }) {
   const { isLoading, image } = useUserImage(chat.user_id);
   const selectedChat = useSelector((state) => state.selectedChat);
@@ -11,9 +12,11 @@ function ChatItem({ chat }) {
   const hasUnreadCount = chat.unread_count > 0;
   const isSelected = selectedChat === chat.id;
   const dispatch = useDispatch();
+  const date = formatDate(chat.date&&chat.date)
 
   const handleChatItemClick = () => {
-    dispatch({type: 'SELECT_CHAT',chatID:chat.id ,userID:chat.user_id});
+    dispatch({type: 'SELECT_CHAT',chatID:chat.id ,userID:chat.user_id , name:chat.user_name});
+    console.log(chat.user_name)
   };
 
   return (
@@ -36,7 +39,7 @@ function ChatItem({ chat }) {
       </div>
       <div className="chat-stats">
         {hasUnreadCount && <div className="unread-count">{chat.unread_count}</div>}
-        <div className="received-at">{formatDate(chat.date)}</div>
+        <div className="received-at">{date? date:"" }</div>
       </div>
     </div>
   );

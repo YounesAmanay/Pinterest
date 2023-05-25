@@ -1,0 +1,126 @@
+.profile-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.profile-container .user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  width: 380px;
+  padding: 20px;
+  background-color: #d7d9e8;
+  height: 100vh;
+}
+
+.profile-container .user-avatar {
+  position: relative;
+}
+
+.profile-container .user-avatar .user-avatar-overlay {
+  position: absolute;
+  top: 50%;
+  left: 47%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.profile-container .user-avatar:hover .user-avatar-overlay {
+  opacity: 1;
+}
+.profile-container .user-avatar-overlay svg {
+  font-size: 60px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.profile-container .user-avatar img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  transition: filter 0.3s ease;
+}
+
+.profile-container .user-avatar:hover img {
+  filter: brightness(70%);
+}
+
+.profile-container .user-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.profile-container .user-actions p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #332d4e;
+  text-transform: capitalize;
+  font-family: "Arial", sans-serif;
+  margin: 0;
+}
+
+.profile-container .user-actions button.start-chat {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(89.71deg, #f53377 0.11%, #f4782c 106.25%);
+  border-radius: 15px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+  font-family: "Arial", sans-serif;
+}
+
+.profile-container .user-avatar .avatar-placeholder {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f2f2;
+  color: #3f0abb;
+  font-size: 100px;
+  text-transform: capitalize;
+}
+
+
+.profile-container .user-actions button.start-chat:hover {
+  background-color: #4b57a3;
+}
+.user-avatar-overlay input{
+  display: none;
+}
+
+.profile-container .user-actions button.start-chat svg {
+  width: 20px;
+  height: 20px;
+  fill: #ffffff;
+}
+

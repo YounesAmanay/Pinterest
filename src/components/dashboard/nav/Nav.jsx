@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   ImPinterest2,
   BiHomeAlt,
@@ -11,13 +11,15 @@ import {
 } from "react-icons/all";
 import "./nav.css";
 import { Outlet } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import usePins from "../../../costumHooks/usePins";
 
 function Nav({ onLogout }) {
-  const [activeIcon, setActiveIcon] = useState(1);
+  const [activeIcon, setActiveIcon] = useState(null);
   const dispatch = useDispatch();
+  const authId = useSelector((state)=>state.authUser)
   const { pins } = usePins();
+  const location = useLocation();
 
   return (
     <>
@@ -28,9 +30,8 @@ function Nav({ onLogout }) {
         <div className="nav">
           <Link to="/">
             <nav
-              className={activeIcon === 1 ? "active" : ""}
+              className={location.pathname === '/' ? 'active' : ''}
               onClick={() => {
-                setActiveIcon(1);
                 dispatch({ type: "SET_PINS", pins });
                 dispatch({
                   type: "SELECT_CATEGORY",
@@ -41,18 +42,18 @@ function Nav({ onLogout }) {
               <BiHomeAlt />
             </nav>
           </Link>
-          <Link to="/profile">
+          <Link to={`profile/${authId}`}>
             <nav
-              className={activeIcon === 2 ? "active" : ""}
-              onClick={() => setActiveIcon(2)}
+               className={location.pathname === `/profile/${authId}` ? 'active' : ''}
+              // onClick={() => setActiveIcon(2)}
             >
               <AiOutlineUser />
             </nav>
           </Link>
           <Link to="/chat">
             <nav
-              className={activeIcon === 3 ? "active" : ""}
-              onClick={() => setActiveIcon(3)}
+              className={location.pathname === '/chat' ? "active" : ""}
+              // onClick={() => setActiveIcon(3)}
 
             >
               <HiOutlineChat />

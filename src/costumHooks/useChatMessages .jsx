@@ -4,7 +4,7 @@ import Echo from "laravel-echo";
 import Pusher from "pusher-js";
 import { useDispatch, useSelector } from "react-redux";
 
-const useChatMessages = (chatID, posted) => {
+const useChatMessages = (chatID, posted ,setPosted) => {
   const [messages, setMessages] = useState([]);
   const [userName, setUserName] = useState("");
   const [userId, setUserId] = useState(null);
@@ -30,11 +30,11 @@ const useChatMessages = (chatID, posted) => {
           }
         );
 
-        dispatch({ type: "SHOULD_LOAD", load: !load });
         setMessages(response.data.messages);
         setUserName(response.data.user_name);
         setUserId(response.data.user_id);
         setIsLoading(false);
+        // dispatch({ type: "SHOULD_LOAD", load: !load });
       } catch (error) {
         setError(error.message);
         setIsLoading(false);
@@ -42,27 +42,16 @@ const useChatMessages = (chatID, posted) => {
     };
 
     fetchChatMessages();
-  }, [chatID, posted , load]);
+  }, [chatID , load ,posted]);
 
   useEffect(() => {
-    // configure Laravel Echo
-    window.Echo = new Echo({
-      broadcaster: "pusher",
-      key: "0dde047a945cb7363c43",
-      wsHost: "127.0.0.1",
-      cluster: "mt1",
-      wsPort: 6001,
-      forceTLS: false,
-      disableStats: true,
-    });
     window.Echo.channel(`chat.${chatID}`)
       .listen("NewMessage", (event) => {
         dispatch({ type: "SHOULD_LOAD", load: !load });
         setMessages((messages) => [...messages, event.message]);
-    
-
       })
       .listen("MessageDeleted", (event) => {
+        setPosted(!posted)
         dispatch({ type: "SHOULD_LOAD", load: !load });
         setMessages((messages) =>
           messages.filter((message) => message.id !== event.message.id)

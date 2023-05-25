@@ -6,16 +6,18 @@ import usePinsByCategory from "../../../../costumHooks/usePinsByCategory";
 import { useDispatch, useSelector } from "react-redux";
 
 function Filter() {
-  const categories = useCategories();
+  const data = useCategories();
   const scrollContainer = useRef(null);
   const selectedCategory = useSelector((state) => state.selectedCategory);
   const dispatch = useDispatch();
+  const categories = useSelector((state)=>state.categories)
 
   const { pins } = usePinsByCategory(selectedCategory?.id);
 
   useEffect(() => {
     dispatch({ type: 'SET_CATEGORY_PINS', pins });
-  }, [dispatch, pins]);
+    dispatch({type: 'SET_CATEGORIES', categories:data})
+  }, [dispatch, pins ,data]);
 
   const scrollLeft = () => {
     if (scrollContainer.current) {

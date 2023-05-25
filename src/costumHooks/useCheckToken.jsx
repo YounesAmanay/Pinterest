@@ -27,9 +27,10 @@ function useCheckToken() {
         });
 
         setIsValid(response.data.valid);
-
+  
+        // console.log(authName)
         if (response.data.valid) {
-          dispatch({ type: 'AUTHENTICATED_USER', auth: response.data.authUser });
+          dispatch({ type: 'AUTHENTICATED_USER', auth: response.data.authUser ,authName:response.data.authName });
         }
       } catch (error) {
         console.error(error);
