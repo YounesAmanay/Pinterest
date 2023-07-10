@@ -15,64 +15,72 @@ function Profile() {
   const authId = useSelector((state) => state.authUser);
   const { user, isLoading } = useUser(id);
   const [selectedImage, setSelectedImage] = useState(null);
-  const { image } = useUserImage(id ,selectedImage);
+  const { image } = useUserImage(id, selectedImage);
   const { updateProfile } = useUpdateProfile();
   const { createChat } = useCreateChat();
   const navigate = useNavigate();
-  const isTrue = authId === Number(id) ;
+  const isTrue = authId === Number(id);
   const handleClick = async () => {
     await createChat(Number(id));
-    navigate('/chat');
+    navigate("/chat");
   };
   const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     setSelectedImage(URL.createObjectURL(file));
     await updateProfile(file);
   };
-  
-  if (isLoading) {
-    return <Loader />;
-  }
+
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
 
   return (
     <div className="profile-container">
-      <div className="user-info">
-        <div className="user-avatar">
-          {isTrue&&<div className="user-avatar-overlay">
-            <label htmlFor="image-upload" className="upload-label">
-              <MdUpdate />
-            </label>
-            <input
-              type="file"
-              id="image-upload"
-              accept="image/*"
-              onChange={handleImageUpload}
-            />
+      {user && (
+        <>
+          <div className="user-info">
+            <div className="user-avatar">
+              {isTrue && (
+                <div className="user-avatar-overlay">
+                  <label htmlFor="image-upload" className="upload-label">
+                    <MdUpdate />
+                  </label>
+                  <input
+                    type="file"
+                    id="image-upload"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                  />
+                </div>
+              )}
+              {selectedImage ? (
+                <img
+                  src={selectedImage}
+                  className="avatar-image"
+                  alt="User Avatar"
+                />
+              ) : image ? (
+                <img src={image} className="avatar-image" alt="User Avatar" />
+              ) : (
+                <div className="avatar-placeholder">{user.name.charAt(0)}</div>
+              )}
+            </div>
+            <div className="user-actions">
+              <p>{user.name}</p>
+              {isTrue ? (
+                ""
+              ) : (
+                <button className="start-chat" onClick={handleClick}>
+                  <BsChatDots />
+                </button>
+              )}
+            </div>
           </div>
-
-          }
-          {selectedImage ? (
-            <img src={selectedImage} className="avatar-image" alt="User Avatar" />
-          ) : image ? (
-            <img src={image} className="avatar-image" alt="User Avatar" />
-          ) : (
-            <div className="avatar-placeholder">{user.name.charAt(0)}</div>
-          )}
-        </div>
-        <div className="user-actions">
-          <p>{user.name}</p>
-          {isTrue? (
-            ""
-          ) : (
-            <button className="start-chat" onClick={handleClick}>
-              <BsChatDots />
-            </button>
-          )}
-        </div>
-      </div>
-      <div className="user-gallery">
-        <div className="cover-container"></div>
-      </div>
+          <div className="user-gallery">
+            <div className="cover-container"></div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

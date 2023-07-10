@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+.w-welcome-container {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.w-welcome-content {
+  display: flex;
+  align-items: center;
+}
+
+.w-welcome-text {
+  flex: 1;
+  margin-right: 40px;
+}
+
+.w-welcome-title {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #ff3366;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.2;
+}
+
+.w-welcome-description {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 20px;
+  line-height: 1.5;
+  font-family: 'Poppins', sans-serif;
+}
+
+.w-welcome-bottom-text {
+  font-size: 18px;
+  color: #888888;
+  margin-bottom: 40px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.w-next-button {
+  background-color: #ff3366;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.w-next-button:hover {
+  background-color: #e6005c;
+}
+
+.w-welcome-image-container {
+  perspective: 1000px;
+}
+
+.w-welcome-image {
+  width: 400px;
+  height: 400px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  transform-style: preserve-3d;
+  transform: rotateY(-20deg) rotateX(10deg);
+  transition: transform 0.5s ease;
+}
+
+.w-welcome-image:hover {
+  transform: rotateY(0deg) rotateX(0deg);
+}

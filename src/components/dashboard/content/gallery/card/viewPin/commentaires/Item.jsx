@@ -3,7 +3,7 @@ import useFormattedDate from "../../../../../../../costumHooks/useFormattedDate 
 import { MdDelete } from "react-icons/md";
 import useUserImage from "../../../../../../../costumHooks/useUserImage";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useDeleteComment from "../../../../../../../costumHooks/useDeleteComment";
 
 function Item({ comment }) {
@@ -13,14 +13,20 @@ function Item({ comment }) {
   const authId = useSelector((state) => state.authUser);
   const [isTrue ,setIsTrue]=useState(false)
   const { deleteComment ,loading} = useDeleteComment(comment.pin_id);
+  const dispatch = useDispatch()
+
+
   useEffect(()=>{
     if(authId=== comment.user_id){
       setIsTrue(true)
     }
   },[comment.user_id , authId , comment])
+
   const handleDeleteClick = async () => {
     await deleteComment(comment.id);
-  }
+    dispatch({ type: 'SET_MESSAGES', message: 'Comment deleted' });
+  };
+  
 
   return (
     <div className="c-item">

@@ -7,6 +7,8 @@ import { TbFileImport } from "react-icons/tb";
 import useCreatePin from "../../../../../costumHooks/useCreatePin";
 import Loader from "../../../../fragments/Loader";
 import usePins from "../../../../../costumHooks/usePins";
+import AddBoard from "./addBoard/AddBoard";
+import useFetchBoards from "../../../../../costumHooks/useFetchBoards";
 
 function AddPin({ onClose }) {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -16,29 +18,24 @@ function AddPin({ onClose }) {
   const [description, setDescription] = useState("");
   const categories = useSelector((state) => state.categories);
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [boards, setBoards] = useState([]);
+  // const [boards, setBoards] = useState([]);
   const [selectedBoard, setSelectedBoard] = useState("");
   const [errors, setErrors] = useState({
     title: "",
     description: "",
   });
   const pinsLoad = useSelector((state) => state.pinsLoad);
+  const [showAddBoard, setShowAddBoard] = useState(false);
+  const [laod, setload] = useState(false);
 
-  const { newPin, error, loading, createPin } = useCreatePin();
+  const { data } = useFetchBoards(showAddBoard, laod);
+
+  const { loading, createPin } = useCreatePin();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    fetchBoards();
-  }, []);
-
-  const fetchBoards = async () => {
-    try {
-      const response = await axios.get("/api/boards");
-      setBoards(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // useEffect(() => {
+  //   setBoards(data)
+  // }, [showAddBoard ,laod]);
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -52,9 +49,13 @@ function AddPin({ onClose }) {
 
   const handleBoardChange = (event) => {
     setSelectedBoard(event.target.value);
+    if (event.target.value === "add_board") {
+      setSelectedBoard("");
+      setShowAddBoard(true);
+    }
   };
 
-  const handleSubmit =() => {
+  const handleSubmit = () => {
     const validationErrors = {};
 
     if (title.trim().length < 5) {
@@ -68,21 +69,26 @@ function AddPin({ onClose }) {
     setErrors(validationErrors);
 
     const formData = new FormData();
-    formData.append("pin", selectedImageFile); //
+    formData.append("pin", selectedImageFile);
     formData.append("title", title);
     formData.append("description", description);
     formData.append("category_id", selectedCategory);
-    formData.append("board_id", 1);
-
-    createPin(formData)
-      .then((newPin) => {
-        dispatch({ type: "UPLOAD_PIN", data: !pinsLoad });
-        console.log(newPin)
-        onClose();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    formData.append("board_id", selectedBoard);
+    console.log(errors)
+    if (errors) {
+      createPin(formData)
+        .then((newPin) => {
+          dispatch({ type: "UPLOAD_PIN", data: !pinsLoad });
+          dispatch({
+            type: "SET_MESSAGES",
+            message: "Pin uploaded successfully!",
+          });
+          onClose();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -139,12 +145,18 @@ function AddPin({ onClose }) {
                     value={selectedBoard}
                     onChange={handleBoardChange}
                   >
-                    <option value="">Select a board</option>
-                    {boards.map((board) => (
-                      <option key={board.id} value={board.id}>
-                        {board.name}
-                      </option>
-                    ))}
+                    {data && data.length > 0 && (
+                      <option value="">Select a board</option>
+                    )}
+                    <option onClick={() => setShowAddBoard(true)}>
+                      Add a board
+                    </option>
+                    {data &&
+                      data.map((board) => (
+                        <option key={board?.id} value={board?.id}>
+                          {board?.name}
+                        </option>
+                      ))}
                   </select>
                 </div>
               </div>
@@ -162,7 +174,6 @@ function AddPin({ onClose }) {
             <div className="lift-section">
               {selectedImage ? (
                 <>
-                  {" "}
                   <img src={selectedImage} alt="Selected" />
                   <div
                     onClick={() => setSelectedImage(null)}
@@ -186,6 +197,13 @@ function AddPin({ onClose }) {
                 </div>
               )}
             </div>
+            {showAddBoard && (
+              <AddBoard
+                laod={laod}
+                setload={setload}
+                onClose={() => setShowAddBoard(false)}
+              />
+            )}
           </>
         ) : (
           <Loader />

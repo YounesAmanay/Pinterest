@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./viewPin.css";
 
@@ -12,18 +12,36 @@ import Commentaires from "./commentaires/Commentaires";
 import useFetchComments from "../../../../../../costumHooks/useFetchComments";
 import { AiOutlineSend } from "react-icons/ai";
 import useStoreComment from "../../../../../../costumHooks/useStoreComment";
+import useToggleFollow from "../../../../../../costumHooks/useToggleFollow";
+import useCheckFollow from "../../../../../../costumHooks/useCheckFollow";
+import { useDispatch, useSelector } from "react-redux";
 
 function ViewPin() {
   const { id } = useParams();
-  const { pin, isTrue, isLoading } = useFetchPin(Number(id));
+  const { pin, isLoading } = useFetchPin(Number(id));
   const { image: pin_img, isLoading: isImageLoading } = useImage(pin?.id || "");
   const { isLoading: userImageLoading, image } = useUserImage(
     pin?.user_id || ""
   );
   const formattedDate = useFormattedDate(pin?.created_at || "");
-  const { comments, error, loading } = useFetchComments(id);
+  const { comments, error, loading } = useFetchComments(Number(id));
   const { storeComment } = useStoreComment(Number(id));
   const [msg, setMsg] = useState("");
+  const { isFollowed, checkFollow } = useCheckFollow();
+  const { toggleFollow } = useToggleFollow();
+  const authId = useSelector((state) => state.authUser);
+  const [isTrue, setIsTrue] = useState(false);
+  const [check, setCheck] = useState(false);
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (pin && pin.user_id) {
+      checkFollow(pin.user_id);
+    }
+    if (pin && authId === pin.user_id) {
+      setIsTrue(true);
+    }
+  }, [pin, authId, isFollowed, check]);
 
   const handleDownload = () => {
     const link = document.createElement("a");
@@ -42,9 +60,17 @@ function ViewPin() {
     setMsg("");
   };
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  const handleFollow = async () => {
+    await toggleFollow(pin.user_id);
+    setCheck(!check);
+    isFollowed
+      ? dispatch({ type: "SET_MESSAGES", message: "Unfollowed!" })
+      : dispatch({ type: "SET_MESSAGES", message: "Followed!" });
+  };
+
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
   return (
     <div className="pin-view-container">
       {pin && (
@@ -82,7 +108,12 @@ function ViewPin() {
                         >
                           <MdFileDownload />
                         </button>
-                        <button className="follow">Follow</button>
+                        <button
+                          onClick={handleFollow}
+                          className={`follow ${isFollowed ? "followed" : ""}`}
+                        >
+                          {isFollowed ? "followed" : "Follow"}
+                        </button>
                       </>
                     )}
                   </div>

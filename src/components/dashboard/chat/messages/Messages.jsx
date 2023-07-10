@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { AiOutlineSend } from "react-icons/ai";
 import "./messages.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,6 +32,13 @@ function Messages() {
   const { postMessage } = usePostMessage();
   const deleteMessage = useDeleteMessage();
   
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [messages]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,10 +53,17 @@ function Messages() {
       });
   };
   const handleDeleteClick = (id) => {
-    deleteMessage(id);
-    setPosted(!posted);
-    dispatch({ type: "SHOULD_LOAD", load: !load });
+    deleteMessage(id)
+      .then(() => {
+        setPosted(!posted);
+        dispatch({ type: "SHOULD_LOAD", load: !load });
+        dispatch({ type: 'SET_MESSAGES', message: 'Message Deleted' });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+  
 
   return (
     <div className="messages-container">
@@ -123,9 +137,11 @@ function Messages() {
                 }
               })
             ) : (
-              <div className="no-chats"> Start a Conversation</div>
+              <p className="no-messages">No messages</p>
             )}
+            <div ref={messagesEndRef} />
           </div>
+
           <div className="transparent">
             <form onSubmit={(e) => handleSubmit(e)} className="messages-footer">
               <input

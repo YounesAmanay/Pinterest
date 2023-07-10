@@ -6,16 +6,19 @@ import SearchBox from "./SearchBox";
 import useOutsideClick from "../../../../../costumHooks/useOutsideClick";
 import useSearchPins from "../../../../../costumHooks/useSearchPins";
 import useDeleteSearchHistory from "../../../../../costumHooks/useDeleteSearchHistory";
+import { useDispatch } from "react-redux";
 
 function Search() {
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [searchHistory, setSearchHistory] = useState([]);
+  const [key, setKey] = useState(0);
   const [showBox, setShowBox] = useState(false);
   const [loading, setLoading] = useState(false);
   const [query ,setQuery]=useState(null)
-  useSearchPins(query)
+  useSearchPins(query, key);
   const { isDeleted, deleteSearchHistory } = useDeleteSearchHistory();
+  const dispatch = useDispatch()
 
 
   const ref = useRef(null);
@@ -54,7 +57,7 @@ function Search() {
           .finally(() => {
             setLoading(false);
           });
-      }, 10);
+      }, 300);
 
       return () => clearTimeout(debounceTimeout);
     } else {
@@ -88,10 +91,10 @@ function Search() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('submitte')
-    setQuery(searchTerm)
-    setSearchTerm('')
-    setShowBox(false)
+    setQuery(searchTerm);
+    setSearchTerm("");
+    setShowBox(false);
+    setKey((prevKey) => prevKey + 1);
   };
 
   return (

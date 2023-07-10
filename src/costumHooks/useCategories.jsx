@@ -1,12 +1,12 @@
 import { useState,useEffect } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 function useCategories() {
+  const dispatch = useDispatch();
 
-  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-
     const options = {
       url: "http://localhost:8000/api/category",
       method: "GET",
@@ -18,13 +18,15 @@ function useCategories() {
     };
     axios(options)
       .then((response) => {
-        setCategories(response.data.data);
+      
+    dispatch({type: 'SET_CATEGORIES', categories:response.data.data})
+
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
 
-  return categories;
+  return null;
 }
 export default useCategories;

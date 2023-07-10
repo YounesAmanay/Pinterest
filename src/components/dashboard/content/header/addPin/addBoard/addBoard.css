@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+.b-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.b-modal-content {
+  position: relative;
+  width: 400px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.b-close-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+}
+
+.b-close-icon:hover {
+  color: #555;
+}
+
+.b-modal-content h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.b-modal-content input[type='text'] {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 20px;
+  margin-bottom: 16px;
+  transition: border-color 0.3s ease;
+  font-family: 'Roboto', sans-serif;
+}
+
+.b-modal-content input[type='checkbox']{
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+  font-family: 'Roboto', sans-serif;
+
+}
+
+.b-modal-content input[type='text']:focus,
+.b-modal-content input[type='checkbox']:focus {
+  border-color: #007bff;
+}
+
+.b-modal-content input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 8px;
+  vertical-align: middle;
+  transition: background-color 0.3s ease;
+}
+
+.b-modal-content input[type='checkbox']:checked {
+  background-color: #007bff;
+}
+
+.b-modal-content input[type='checkbox']:checked::before {
+  content: '\2713';
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+  text-align: center;
+  line-height: 16px;
+}
+
+.b-modal-content input[type='checkbox']:hover,
+.b-modal-content input[type='checkbox']:focus {
+  border-color: #007bff;
+}
+
+.b-button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.b-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: 'Roboto', sans-serif;
+}
+
+.b-button:hover {
+  background-color: #0056b3;
+}
+
+.b-check {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-start;
+  gap: 8px;
+}

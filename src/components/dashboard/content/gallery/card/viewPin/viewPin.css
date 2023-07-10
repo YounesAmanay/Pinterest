@@ -51,11 +51,11 @@
   justify-content: space-between;
   padding: 16px;
   background-color: #fff;
-  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 1;
+  width: 100%;
 }
 
 .pin-lift-header .lift-user {
@@ -137,8 +137,15 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.01);
 }
 
-.pin-lift-header .lift-user .lift-buttons .follow:hover {
-  background-color: #e60000;
+.pin-lift-header .lift-user .lift-buttons .follow.followed {
+  background-color: #ff4f4f;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.pin-lift-header .lift-user .lift-buttons .follow.followed:hover {
+  background-color: #ff0040;
 }
 
 .pin-v-d {
@@ -165,7 +172,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* background-color: rgba(255, 255, 255, 0.9); */
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   position: sticky;
   bottom: 0;

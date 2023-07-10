@@ -1,40 +1,34 @@
-import { useState, useEffect } from 'react';
+import { useQuery } from 'react-query';
 import axios from 'axios';
 
-function useUserImage(userId ,selectedImage) {
-  const [image, setImage] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchImage() {
+function useUserImage(userId, selectedImage) {
+  const { data, isLoading } = useQuery(
+    ['userImage', userId, selectedImage],
+    async () => {
       const token = localStorage.getItem('token');
-
       const options = {
         url: `http://localhost:8000/api/profile/${userId}`,
         method: 'GET',
         responseType: 'blob',
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        },
+          Authorization: `Bearer ${token}`
+        }
       };
-
-      try {
-        const response = await axios(options);
-        const imageUrl = URL.createObjectURL(response.data);
-        setImage(imageUrl);
-      } catch (error) {
-        console.error(error);
-      }
-
-      setIsLoading(false);
+      const response = await axios(options);
+      return URL.createObjectURL(response.data);
+    },
+    {
+      staleTime: Infinity,
+      cacheTime: Infinity
     }
+  );
 
-    fetchImage();
-  }, [userId ,selectedImage]);
-
-  return { image, isLoading };
+  return {
+    image: data,
+    isLoading
+  };
 }
 
 export default useUserImage;

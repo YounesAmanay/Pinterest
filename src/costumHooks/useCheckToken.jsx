@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
 
 function useCheckToken() {
   const [isValid, setIsValid] = useState(false);
@@ -9,7 +9,7 @@ function useCheckToken() {
 
   useEffect(() => {
     async function checkToken() {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
 
       if (!token) {
         setIsValid(false);
@@ -18,19 +18,26 @@ function useCheckToken() {
       }
 
       try {
-        const response = await axios.get('http://localhost:8000/api/auth/check', {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          "http://localhost:8000/api/auth/check",
+          {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         setIsValid(response.data.valid);
-  
-        // console.log(authName)
+
         if (response.data.valid) {
-          dispatch({ type: 'AUTHENTICATED_USER', auth: response.data.authUser ,authName:response.data.authName });
+          dispatch({
+            type: "AUTHENTICATED_USER",
+            auth: response.data.authUser,
+            authName: response.data.authName,
+            onboarding: response.data.onboarding,
+          });
         }
       } catch (error) {
         console.error(error);

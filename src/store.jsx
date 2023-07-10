@@ -3,15 +3,18 @@ import { legacy_createStore } from 'redux';
 const initialState = {
   pins: [],
   selectedCategory: null,
+  categories:[],
   selectedChat : null,
   chat_user: null,
   authUser:null,
   authName:null,
   chat_user_name:null,
+  search : false,
   load:false,
-  categories:[],
   boards:[],
   pinsLoad:false,
+  messages:[],
+  onboarding:false,
 };
 
 function reducer(state = initialState, action) {
@@ -20,6 +23,26 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         pins: action.pins,
+      };
+    case 'SET_CATEGORIES':
+      return {
+        ...state,
+        categories: action.categories,
+      };
+    case 'SET_BOARDS':
+      return {
+        ...state,
+        boards: action.boards,
+      };
+    case 'SET_MESSAGES':
+      return {
+        ...state,
+        messages: [...state.messages, action.message],
+      };
+    case 'CLEAR_MESSAGES':
+      return {
+        ...state,
+        messages:[],
       };
       case 'UPLOAD_PIN':
         return {
@@ -36,15 +59,10 @@ function reducer(state = initialState, action) {
         ...state,
         selectedCategory: action.selectedCategory,
       };
-    case 'SET_CATEGORIES':
-      return {
-        ...state,
-        categories: action.categories,
-      };
     case 'SEARCH':
       return {
         ...state,
-        pins:action.searchPins
+        search:action.search
       };
     case 'SELECT_CHAT':
       return {
@@ -57,14 +75,13 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         authUser:action.auth,
-        authName:action.authName
-
+        authName:action.authName,
+        onboarding:action.onboarding,
       };
     case 'SHOULD_LOAD':
       return {
         ...state,
         load:action.load
-
       };
     default:
       return state;

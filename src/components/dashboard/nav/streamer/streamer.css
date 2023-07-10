@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
+
+.notification-modal {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #222;
+  color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  min-width: 300px; /* Adjust the width as needed */
+  font-family: 'Roboto', sans-serif; /* Custom font family */
+}
+
+.notification-modal.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.notification-message {
+  flex: 1;
+  margin-right: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.dismiss-button {
+  background-color: #555;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dismiss-button:hover {
+  background-color: #777;
+}
+
+.dismiss-button svg {
+  vertical-align: middle;
+}

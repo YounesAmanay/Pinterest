@@ -4,6 +4,7 @@ import Header from "./header/Header";
 import Filter from "./filter/Filter";
 import Gallery from "./gallery/Gallery";
 import "./content.css";
+import Onboarding from "../nav/onboarding/Onboarding";
 
 function Content() {
   const [showHeader, setShowHeader] = useState(true);
@@ -13,6 +14,7 @@ function Content() {
   };
 
   return (
+    <>
     <div className="home-container">
       <div className={`header-filter-container ${showHeader ? "" : "hidden"}`}>
         <Header />
@@ -23,6 +25,7 @@ function Content() {
       </button>
       <Gallery />
     </div>
+    </>
   );
 }
 
